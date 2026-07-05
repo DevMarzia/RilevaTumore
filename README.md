@@ -60,13 +60,14 @@ streamlit run app.py
 ```
 Una volta aperta la pagina web, nella sidebar potrai scegliere quale risonanza visionare tra quelle usate per l'addestramento e quelle ignote al modello. 
 
-### 🔗 Notebook di Addestramento (Google Colab)
+### Notebook di Addestramento (Google Colab)
 Tutto il codice relativo alla pipeline di preprocessing, alla definizione del loop di training PyTorch, alla gestione sequenziale dei checkpoint e alla generazione dei grafici delle metriche è stato eseguito in ambiente cloud.
 Il file lo puoi trovare al seguente link:
 
 
 ### Struttura dei File nella Repository
 
+```text
 RilevaTumore
 ├── file_test/
 |   ├── images/
@@ -91,5 +92,5 @@ RilevaTumore
 ├── requirements.txt                  # Elenco dipendenze del progetto
 ├── Analisi_Tecnica.pdf               # Report del progetto
 └── README.md                         # File di documentazione generale
-
+```
 
