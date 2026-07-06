@@ -63,6 +63,7 @@ Una volta aperta la pagina web, nella sidebar potrai scegliere quale risonanza v
 ### Notebook di Addestramento (Google Colab)
 Tutto il codice relativo alla pipeline di preprocessing, alla definizione del loop di training PyTorch, alla gestione sequenziale dei checkpoint e alla generazione dei grafici delle metriche è stato eseguito in ambiente cloud.
 Il file lo puoi trovare al seguente link:
+**https://colab.research.google.com/drive/1nNQl1e9f3w8axl7hqYWL5Qbx44AXut0T#scrollTo=J4tRX46GuN80**
 
 
 ### Struttura dei File nella Repository
