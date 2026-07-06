@@ -23,7 +23,7 @@ st.write(
 )
 
 
-# --- Definizione dei percorsi e dei dati ---
+# Definizione dei percorsi e dei dati
 DATA_DIR = "file_test"
 IMAGES_DIR = os.path.join(DATA_DIR, "images")
 LABELS_DIR = os.path.join(DATA_DIR, "labels")
@@ -72,7 +72,7 @@ if os.path.exists(IMAGES_DIR):
         # Avviene una controllo automatico per verifica se per il paziente selezionato esiste la maschera del medico
         has_mask = os.path.exists(percorso_label)
         if has_mask:
-            st.sidebar.success(" Maschera del Medico trovata in archivio!")
+            st.sidebar.success("Maschera del Medico trovata in archivio")
         else:
             st.sidebar.warning("Paziente ignoto. L'analisi sarà basata solo sulla predizione del modello.")
     else:
@@ -102,7 +102,7 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
     
     # Esegue il preprocessing e la U-Net solo se non è già stato fatto per il paziente corrente
     if not st.session_state.get("elaborato", False):
-        with st.spinner("Allineamento geometrico 3D e inferenza in corso (Uso CPU)..."):
+        with st.spinner("Caricamento in corso..."):
             
             if has_mask:
                 data_dict = {"image": percorso_immagine, "label": percorso_label}
@@ -165,7 +165,7 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
    
     # SEZIONI 2D 
     st.subheader(f"🔬 Ispezione Sezioni 2D - {paziente_scelto}")
-    st.write("Scorri lo slider per confrontare diverse sezioni anatomiche della risonanza")
+    st.write("Scorri lo slider per confrontare diverse sezioni della risonanza")
     
     profondita_z = img_np.shape[2]
     fetta_selezionata = st.slider(
@@ -215,7 +215,7 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
     st.markdown("---")
 
     
-    # 2. SEZIONE INFERIORE: RENDERING 3D 
+    # RENDERING 3D 
     st.subheader("🧠 Rendering 3D del Cervello")
     st.write("Ruota il cervello con il mouse per esaminare la profondità tridimensionale della massa.")
     
@@ -236,7 +236,7 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
         isomin_cervello = min(isomin_cervello, 0.12)  # Impedisce al tumore molto acceso di spegnere il cervello sano
         isomax_cervello = float(np.max(sotto_img))
 
-        # TRACE 1: Guscio Encefalico Trasparente 
+        # Sezione del cervello trasparente
         fig_3d.add_trace(go.Isosurface(
             x=X.flatten(), y=Y.flatten(), z=Z.flatten(),
             value=sotto_img.flatten(),
@@ -246,7 +246,7 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
             caps=dict(x_show=False, y_show=False, z_show=False)
         ))
 
-        # TRACE 2: Maschera Medico (Rosso) - Presente solo se l'archivio lo prevede
+        # Maschera Medico (Rosso) - Presente solo se l'archivio lo prevede
         if has_mask and np.sum(sotto_mask > 0) > 0:
             fig_3d.add_trace(go.Isosurface(
                 x=X.flatten(), y=Y.flatten(), z=Z.flatten(),
@@ -256,7 +256,7 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
                 caps=dict(x_show=False, y_show=False, z_show=False)
             ))
 
-        # TRACE 3: Predizione dell'IA (Blu)
+        # Predizione dell'IA (Blu)
         if np.sum(sotto_pred) > 0:
             fig_3d.add_trace(go.Isosurface(
                 x=X.flatten(), y=Y.flatten(), z=Z.flatten(),
@@ -278,8 +278,8 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
 
     with col_metriche:
         st.markdown("### Dati Clinici")
-        st.metric("Volume stimato IA", f"{volume_cm3:.2f} cm³")
-        st.metric("Conteggio assoluto", f"{int(volume_voxel)} voxel")
+        st.metric("Volume AI", f"{volume_cm3:.2f} cm³")
+        st.metric("Conteggio totale", f"{int(volume_voxel)} voxel")
         
         if has_mask:
             # Calcolo matematico del Dice Score
@@ -287,7 +287,7 @@ if pulsante_avvia or st.session_state.get("elaborato", False):
             intersezione = np.sum((pred_np > 0) * (mask_np > 0))
             dice_score = (2.0 * intersezione) / (np.sum(pred_np > 0) + np.sum(mask_np > 0) + 1e-6)
             
-            st.metric("Volume Medico (GT)", f"{volume_medico / 1000.0:.2f} cm³")
+            st.metric("Volume Medico", f"{volume_medico / 1000.0:.2f} cm³")
             st.metric("Dice Coefficient", f"{dice_score:.4f}")
 
         st.info(
