@@ -91,7 +91,7 @@ RilevaTumore
 ├── pesi_3dunet_best_flair.pth        # Pesi del modello ottimizzato
 ├── app.py                            # Codice dell'applicazione Streamlit
 ├── requirements.txt                  # Elenco dipendenze del progetto
-├── Analisi_Tecnica.pdf               # Report del progetto
+├── AnalisiTecnica_RilevaTumore.pdf               # Report del progetto
 └── README.md                         # File di documentazione generale
 ```
 
